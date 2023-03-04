@@ -1,8 +1,8 @@
-public class MyHashMap {
+public class MyHashMap<T> {
     //додає пару ключ + значення:
-    void put(Object value, Object key){}
+    void put(Object key, Object value){}
     //видаляє пару за ключем:
-    void remove(Object key){} 
+    void remove(Object key){}
     //очищає колекцію:
     void clear(){}
     //повертає розмір колекції:
