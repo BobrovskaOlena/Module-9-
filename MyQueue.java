@@ -1,6 +1,9 @@
 public class MyQueue {
+    private Object[] buyers;
     //додає елемент в кінець:
-    void add(Object value){}
+    void add(Object value){
+
+    }
     //очищає колекцію:
     void clear(){}
     //повертає розмір колекції:

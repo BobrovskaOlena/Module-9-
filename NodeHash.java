@@ -1,20 +1,34 @@
-public class NodeHash<T> {
-    private T value;
-    private NodeHash<T> next;
-
-    public T getValue() {
-        return value;
+public class NodeHash<K, V> {
+    private K key;
+    private V value;
+    private MyHashMap<K, V> next;
+    public NodeHash(K key, V value, MyHashMap<K, V> next){
+        this.key = key;
+        this.value = value;
+        this.next = next;
+    }
+    public K getKey() {
+        return key;
     }
 
-    public void setValue(T value) {
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+    public void setValue(V value) {
         this.value = value;
     }
 
-    public NodeHash<T> getNext() {
+    public MyHashMap<K, V> getNext() {
         return next;
     }
-
-    public void setNext(NodeHash<T> next) {
+    public void setNext(MyHashMap<K, V> next) {
         this.next = next;
     }
 }
+
+
+
