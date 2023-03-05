@@ -1,5 +1,5 @@
-public class MyHashMap<K, V> {
-    private int number = 8;
+public class MyHashMap<K, V> {}
+    /*private int number = 8;
     private final NodeHash<K, V>[] listOfEmployees;
     public MyHashMap(){
         listOfEmployees = new NodeHash[number];
@@ -53,7 +53,7 @@ public class MyHashMap<K, V> {
     //очищає колекцію:
    /* void clear(){}
     //повертає розмір колекції:
-    void size(){}*/
+    void size(){}
     //повертає значення (Object value) за ключем:
     public V get(K key){
         V value = null;
@@ -67,5 +67,4 @@ public class MyHashMap<K, V> {
         }
         return value;
     }
-}
-
+}*/
