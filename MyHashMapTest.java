@@ -7,7 +7,7 @@ public class MyHashMapTest {
         yearOfBirth.put("Oleg", 2000);
         yearOfBirth.put("Alex", 1970);
         //yearOfBirth.get("Anton");*/
-        MyHashMap<Integer, String> map = new MyHashMap<Integer, String>();
+      /*  MyHashMap<Integer, String> map = new MyHashMap<Integer, String>();
         System.out.println("Going to add entries in map");
         map.put(null, "Nothing");
         map.put(1998, "Olena");
@@ -16,7 +16,7 @@ public class MyHashMapTest {
         map.put(1990, "Marta");
         map.put(1999, "Alex");
         System.out.println("Removing key 3");
-        map.remove(3);
+        map.remove(3);*/
 
 
 
