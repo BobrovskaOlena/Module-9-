@@ -1,73 +1,71 @@
 public class MyHashMap<K, V> {
-    private K key;
-    private V value;
-    private MyHashMap<K, V> next;
-    public MyHashMap(K key, V value, MyHashMap<K, V> next){
-        this.key = key;
-        this.value = value;
-        this.next = next;
-    }
-    public K getKey() {
-        return key;
-    }
-
-    public void setKey(K key) {
-        this.key = key;
-    }
-
-    public V getValue() {
-        return value;
-    }
-    public void setValue(V value) {
-        this.value = value;
-    }
-
-    public MyHashMap<K, V> getNext() {
-        return next;
-    }
-    public void setNext(MyHashMap<K, V> next) {
-        this.next = next;
-    }}
     private int number = 8;
-    private MyHashMap[] listOfEmployees;
-
+    private final NodeHash<K, V>[] listOfEmployees;
     public MyHashMap(){
-        listOfEmployees = new MyHashMap[number];
+        listOfEmployees = new NodeHash[number];
     }
 
     public MyHashMap(int number){
         this.number = number;
-        listOfEmployees = new MyHashMap[number];
+        listOfEmployees = new NodeHash[number];
     }
 
-   //додає пару ключ + значення:
-    public void put(K key, V value){
-        int index = index(key);
-        MyHashMap newEntry = new MyHashMap(key, value, null);
-        if(listOfEmployees[index] == null){
-            listOfEmployees[index] = newEntry;
-        }else {
-            MyHashMap<K, V> previousNode = null;
-            MyHashMap<K, V> currentNode = listOfEmployees[index];
-            while(currentNode != null){
-                if(currentNode.getKey().equals(key)){
+
+    //додає пару ключ + значення:
+    public void put(K key, V value) {
+        NodeHash <K,V>newNode = new NodeHash<>(key, value, null);
+        if (listOfEmployees[number] == null) {
+            listOfEmployees[number] = newNode;
+        } else {
+            NodeHash<K, V> previousNode = null;
+            NodeHash<K, V> currentNode = listOfEmployees[number];
+            while (currentNode != null) {
+                if (currentNode.getKey().equals(key)) {
                     currentNode.setValue(value);
                     break;
                 }
                 previousNode = currentNode;
                 currentNode = currentNode.getNext();
             }
-            if(previousNode != null)
-                previousNode.setNext(newEntry);
+            if (previousNode != null)
+                previousNode.setNext(newNode);
         }
     }
-}
     //видаляє пару за ключем:
-   /* void remove(Object key){}
+    public void remove(K key){
+        NodeHash previous = null;
+        NodeHash nodeHash = listOfEmployees[number];
+        while (nodeHash != null){
+            if(nodeHash.getKey().equals(key)){
+                if(previous == null){
+                    nodeHash = nodeHash.getNext();
+                    listOfEmployees[number] = nodeHash;
+                    return;
+                }else {
+                    previous.setNext(nodeHash.getNext());
+                    return;
+                }
+            }
+            previous = nodeHash;
+            nodeHash = nodeHash.getNext();
+        }
+    }
     //очищає колекцію:
-    void clear(){}
+   /* void clear(){}
     //повертає розмір колекції:
-    void size(){}
+    void size(){}*/
     //повертає значення (Object value) за ключем:
-    void get(Object key){}*/
+    public V get(K key){
+        V value = null;
+        NodeHash<K, V> nodeHash = listOfEmployees[number];
+        while (nodeHash != null){
+            if(nodeHash.getKey().equals(key)) {
+                value = nodeHash.getValue();
+                break;
+            }
+            nodeHash = nodeHash.getNext();
+        }
+        return value;
+    }
+}
 

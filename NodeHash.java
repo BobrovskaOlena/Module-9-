@@ -1,8 +1,8 @@
 public class NodeHash<K, V> {
     private K key;
     private V value;
-    private MyHashMap<K, V> next;
-    public NodeHash(K key, V value, MyHashMap<K, V> next){
+    private NodeHash<K, V> next;
+    public NodeHash(K key, V value, NodeHash<K, V> next){
         this.key = key;
         this.value = value;
         this.next = next;
@@ -22,10 +22,10 @@ public class NodeHash<K, V> {
         this.value = value;
     }
 
-    public MyHashMap<K, V> getNext() {
+    public NodeHash<K, V> getNext() {
         return next;
     }
-    public void setNext(MyHashMap<K, V> next) {
+    public void setNext(NodeHash<K, V> next) {
         this.next = next;
     }
 }
