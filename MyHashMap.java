@@ -1,70 +1,52 @@
-public class MyHashMap<K, V> {}
-    /*private int number = 8;
-    private final NodeHash<K, V>[] listOfEmployees;
-    public MyHashMap(){
-        listOfEmployees = new NodeHash[number];
+public class MyHashMap {
+    private String key;
+    private Integer value;
+    private Object next;
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public MyHashMap(int number){
-        this.number = number;
-        listOfEmployees = new NodeHash[number];
+    public String getKey() {
+        return key;
     }
 
-
-    //додає пару ключ + значення:
-    public void put(K key, V value) {
-        NodeHash <K,V>newNode = new NodeHash<>(key, value, null);
-        if (listOfEmployees[number] == null) {
-            listOfEmployees[number] = newNode;
-        } else {
-            NodeHash<K, V> previousNode = null;
-            NodeHash<K, V> currentNode = listOfEmployees[number];
-            while (currentNode != null) {
-                if (currentNode.getKey().equals(key)) {
-                    currentNode.setValue(value);
-                    break;
-                }
-                previousNode = currentNode;
-                currentNode = currentNode.getNext();
-            }
-            if (previousNode != null)
-                previousNode.setNext(newNode);
-        }
-    }
-    //видаляє пару за ключем:
-    public void remove(K key){
-        NodeHash previous = null;
-        NodeHash nodeHash = listOfEmployees[number];
-        while (nodeHash != null){
-            if(nodeHash.getKey().equals(key)){
-                if(previous == null){
-                    nodeHash = nodeHash.getNext();
-                    listOfEmployees[number] = nodeHash;
-                    return;
-                }else {
-                    previous.setNext(nodeHash.getNext());
-                    return;
-                }
-            }
-            previous = nodeHash;
-            nodeHash = nodeHash.getNext();
-        }
-    }
-    //очищає колекцію:
-   /* void clear(){}
-    //повертає розмір колекції:
-    void size(){}
-    //повертає значення (Object value) за ключем:
-    public V get(K key){
-        V value = null;
-        NodeHash<K, V> nodeHash = listOfEmployees[number];
-        while (nodeHash != null){
-            if(nodeHash.getKey().equals(key)) {
-                value = nodeHash.getValue();
-                break;
-            }
-            nodeHash = nodeHash.getNext();
-        }
+    public Integer getValue() {
         return value;
     }
-}*/
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Object getNext() {
+        return next;
+    }
+
+    public void setNext(Object next) {
+        this.next = next;
+    }
+    private int capacity = 16;
+    private final int d = 16;
+    private final String[] listOfEmployees;
+    private Integer[] Date;
+    public MyHashMap(){
+        listOfEmployees = new String[capacity];
+        Date= new Integer[d];
+    }
+    public MyHashMap(int capacity){
+        this.capacity = capacity;
+        listOfEmployees = new String[capacity];
+    }
+    int number = 0;
+    public void put(String key, Integer value){
+        listOfEmployees[number] = key;
+        number++;
+    }}
+
+
+
+
+
+
+
