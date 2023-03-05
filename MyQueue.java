@@ -3,12 +3,8 @@ import java.util.StringJoiner;
 
 public class MyQueue<T> {
     private static final int numberOfBuyers = 7;
-    private Object[] buyers;
+    private Object[] buyers = new Object[numberOfBuyers];
     private int num;
-
-    public MyQueue(){
-        buyers = new Object[numberOfBuyers];
-    }
     //додає елемент в кінець:
     public void add(T value){
         ifNeedNewSize();
