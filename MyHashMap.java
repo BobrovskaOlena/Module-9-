@@ -1,48 +1,49 @@
+import java.util.Arrays;
 public class MyHashMap {
-    private String key;
-    private Integer value;
-    private Object next;
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public Object getNext() {
-        return next;
-    }
-
-    public void setNext(Object next) {
-        this.next = next;
-    }
-    private int capacity = 16;
-    private final int d = 16;
-    private final String[] listOfEmployees;
-    private Integer[] Date;
-    public MyHashMap(){
-        listOfEmployees = new String[capacity];
-        Date= new Integer[d];
-    }
-    public MyHashMap(int capacity){
-        this.capacity = capacity;
-        listOfEmployees = new String[capacity];
-    }
+    private final int d = 8;
+    public String[] listOfEmployees = new String[d];
+    public Integer[] Date = new Integer[d];
     int number = 0;
+    int number1 = 0;
     public void put(String key, Integer value){
-        listOfEmployees[number] = key;
-        number++;
-    }}
+            listOfEmployees[number] = key;
+            number++;
+            Date[number1] = value;
+            number1++;
+
+        System.out.println(Arrays.toString(listOfEmployees));
+        System.out.println(Arrays.toString(Date));
+    }
+    void remove(String key){
+        int a = 0;
+    for(int i = 0; i<listOfEmployees.length; i++){
+    if(listOfEmployees[i].equals(key)){
+        Date[a+i]=null;
+    }
+        System.out.println(Arrays.toString(Date));}
+    }
+    void clear(){
+        int b =0;
+        for(int i = 0; i<listOfEmployees.length; i++){
+            listOfEmployees[i] = null;
+            Date[b+i]=null;
+        }
+        System.out.println(Arrays.toString(listOfEmployees));
+        System.out.println(Arrays.toString(Date));
+    }
+    public int size(){
+       return listOfEmployees.length;
+    }
+    void get(String key){
+        Integer result = 0;
+        for(int i =0; i<listOfEmployees.length; i++){
+            if(listOfEmployees[i].equals(key)){
+                result+=Date[i];
+            }
+        }
+        System.out.println(result);
+    }
+}
 
 
 
