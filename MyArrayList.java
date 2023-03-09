@@ -43,33 +43,32 @@ public class MyArrayList<T> {
     }
 
     //видаляє елемент із вказаним індексом:
-    public void remove(int index1) {
-        Object[] newNumbering1 = null;
-        for (int i = 0; i < array.length-1; i++) {
-            if(array[i].equals(index1)){
-                newNumbering1 = new Object[array.length-1];
-                System.arraycopy(array, 0, newNumbering1, 0, i);
-                if (array.length - 1 - i >= 0)
-                    System.arraycopy(array, i + 1, newNumbering1, i, array.length - 1 - i);
-                break;
+    public void remove(int index) {
+        Object[] afterRemove = new Object[array.length-1];
+        int d = 0;
+        for(int i = 0; i<array.length;i++){
+            if(i==index){
+                continue;
             }
+            afterRemove[d]=array[i];
+            d++;
         }
-        System.out.println("New Array after deleting element = "+index1+" and shifting: "+ Arrays.toString(newNumbering1));
+        System.out.println(Arrays.toString(afterRemove));
     }
 
     //очищає колекцію:
     public void clear(){
         System.out.println("After clearing Array:");
-        for (int i = 0; i < array.length; i++) {
-            array[i] = null;
-        }
+        Arrays.fill(array, null);
         int a=0;
         Object[] afterClear = new Object[a];
-        for (int j = 0; j<array.length; j++){
-            if(array[j]==null){
-                a+=0;
-            } else { afterClear[a]=array[j];
-                a++;}
+        for (Object o : array) {
+            if (o == null) {
+                a += 0;
+            } else {
+                afterClear[a] = o;
+                a++;
+            }
         }
         System.out.println(Arrays.toString(afterClear));
         System.out.println("Size after clear: " + afterClear.length);

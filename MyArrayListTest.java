@@ -8,6 +8,7 @@ public class MyArrayListTest {
             System.out.println("list.size() = "+ list.size());
             System.out.println("list.get(2) = "+ list.get(2));
             list.remove(7);
+            list.remove(9);
             list.clear();
         }
     }
