@@ -1,64 +1,138 @@
-import java.util.Arrays;
-public class MyHashMap {
-    private final int d = 8;
-    public String[] listOfEmployees = new String[d];
-    public Integer[] Date = new Integer[d];
-    int number = 0;
-    int number1 = 0;
-    public void put(String key, Integer value){
-            listOfEmployees[number] = key;
-            number++;
-            Date[number1] = value;
-            number1++;
+import java.util.Objects;
 
-        System.out.println(Arrays.toString(listOfEmployees));
-        System.out.println(Arrays.toString(Date));
-    }
-    void remove(String key){
-        int a = 0;
-        int c = 0;
-        String[] afterRemoveListOfEmployees = new String[listOfEmployees.length-1];
-        Integer[] afterRemoveDate = new Integer[Date.length-1];
-    for(int i = 0; i<listOfEmployees.length; i++){
-        if(listOfEmployees[i].equals(key)){
-            continue;}
-        afterRemoveListOfEmployees[a]=listOfEmployees[i];
-        a++;}
-        System.out.println(Arrays.toString(afterRemoveListOfEmployees));
-         for(int j = 0; j<Date.length; j++){
-             if(listOfEmployees[j].equals(key)){
-                 continue;}
-             afterRemoveDate[c]=Date[j];
-            c++;
-    }
-        System.out.println(Arrays.toString(afterRemoveDate));
+public class MyHashMap<K,V> {
+    Node[] buckets = new Node[8];
+    int sizeMyMap = 0;
 
+    public void put(K key, V value) {
+        int hashValue = Objects.hash(key);
+        int index = hashValue & (buckets.length-1);
+
+        if (buckets[index] == null) {
+            putToEmptyBucket(key, value, hashValue, index);
+        } else {
+            for (Node node = buckets[index];; node = node.getNextNode()) {
+                if (node == null) {
+                    break;
+                }
+                if (node.getHashCode() != hashValue && !node.getKey().equals(key)) {
+                    putNextNode(key, value, hashValue, index);
+                    sizeMyMap++;
+                } else if (node.getKey().equals(key) && node.getValue() != value) {
+                    node.setValue(value);
+                    break;
+                }
+            }}
     }
-    void clear(){
-        int b =0;
-        for(int i = 0; i<listOfEmployees.length; i++){
-            listOfEmployees[i] = null;
-            Date[b+i]=null;
-        }
-        System.out.println(Arrays.toString(listOfEmployees));
-        System.out.println(Arrays.toString(Date));
-    }
-    public int size(){
-       return listOfEmployees.length;
-    }
-    void get(String key){
-        Integer result = 0;
-        for(int i =0; i<listOfEmployees.length; i++){
-            if(listOfEmployees[i].equals(key)){
-                result+=Date[i];
+
+    public V get(K key) {
+        V value = null;
+
+        for (Node bucket : buckets) {
+            for (Node currentNode = bucket; ; currentNode = currentNode.getNextNode()) {
+                if (currentNode == null) {
+                    break;
+                }
+                if (currentNode.getKey().equals(key)) {
+                    value = (V) currentNode.getValue();
+                    break;
+                }
             }
         }
-        System.out.println(result);
+        return value;
+    }
+
+    public void remove(K key) {
+        Node next;
+
+        for (int i = 0; i < buckets.length; i++) {
+            for (Node node = buckets[i];; node = node.getNextNode()) {
+                if (node == null) {
+                    break;
+                }
+                if (node.getKey().equals(key)) {
+                    buckets[i] = buckets[i].getNextNode();
+                    sizeMyMap--;
+                }
+                if (node.getNextNode() != null) {
+                    next = node.getNextNode();
+
+                    if (next.getKey().equals(key)) {
+                        node.setNextNode(next.getNextNode());
+                        sizeMyMap--;
+                        break;
+                    }
+
+                }}
+        }
+    }
+
+    public void clear() {
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = null;
+        }
+        sizeMyMap = 0;
+    }
+
+    public int size() {
+        return sizeMyMap;
+    }
+
+    private void putToEmptyBucket(K key, V value, int hashValue, int index) {
+        Node<K, V> newNode = new Node<>(hashValue, key, value, null);
+        buckets[index] = newNode;
+        sizeMyMap++;
+    }
+
+    private void putNextNode(K key, V value, int hashValue, int index) {
+        for ( Node currentNode = buckets[index];; currentNode = currentNode.getNextNode()) {
+            if (currentNode.getNextNode() == null) {
+                Node node = new Node<>(hashValue, key, value, null);
+                currentNode.setNextNode(node);
+
+                break;
+            }
+        }
+    }
+    private static class Node<K, V> {
+        private int hashCode;
+        private final K key;
+        private V value;
+        private Node nextNode;
+
+        Node(int hashCode, K key, V value, Node nextNode) {
+            this.hashCode = hashCode;
+            this.key = key;
+            this.value = value;
+        }
+
+        public void setNextNode(Node nextNode) {
+            this.nextNode = nextNode;
+        }
+
+        public Node getNextNode() {
+            return nextNode;
+        }
+
+        public int getHashCode() {
+            return hashCode;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public void setValue(V value) {
+            this.value = value;
+        }
+
+
     }
 }
-
-
-
 
 
 
