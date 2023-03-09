@@ -9,7 +9,6 @@ public class MyArrayListTest {
             System.out.println("list.get(2) = "+ list.get(2));
             list.remove(7);
             list.clear();
-
         }
     }
 
