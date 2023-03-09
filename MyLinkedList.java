@@ -28,18 +28,11 @@ public class MyLinkedList<T> {
  }
 
  //очищає колекцію:
- public Node1<T> clear() {
+ public void clear() {
    Node1<T> previous = null;
-   Node1<T> current = head;
-   Node1<T> next;
-  while (current != null){
-   next = current.getNext();
-   current.setNext(previous);
-   previous = current;
-   current = next;
+   Node1<T> current = null;
+   Node1<T> next = null;
   }
-  return previous;
- }
 
  //повертає розмір колекції:
  public int size() {
