@@ -1,69 +1,78 @@
 import java.util.Arrays;
 public class MyStack<T> {
-    private final int  count = 5;
-    private Object[] books = new Object[count];
-    private int number=0;
+    private final int count = 5;
+    private Object[] elements = new Object[count];
+    private int number = 0;
 
     //додає елемент в кінець:
-    public void push(T value){
+    public void push(T value) {
         ifNeedNewSize();
-        books[number]=value;
+        elements[number] = value;
         number++;
-        reverse();}
-        void reverse(){
-            int a = 0;
-        Object[]books3 = new Object[books.length];
-        for(int i = books.length-1; i>=0; i--){
-            books3[a] = books[i];
+        reverse();
+    }
+
+    void reverse() {
+        int a = 0;
+        Object[] elements3 = new Object[elements.length];
+        for (int i = elements.length - 1; i >= 0; i--) {
+            elements3[a] = elements[i];
             a++;
         }
-        System.out.println(Arrays.toString(books3));}
+        System.out.println(Arrays.toString(elements3));
+    }
 
-    private void ifNeedNewSize(){
-        if(number==books.length){
-            System.out.println("The resizing process is successful, count: "+ count + ", books.length is: " + books.length);
-            int newCount = (books.length*3)/2;
+    private void ifNeedNewSize() {
+        if (number == elements.length) {
+            System.out.println("The resizing process is successful, count: " + count + ", books.length is: " + elements.length);
+            int newCount = (elements.length * 3) / 2;
             Object[] newBooks = new Object[newCount];
-            System.arraycopy(books, 0, newBooks, 0, books.length);
-            books=newBooks;
+            System.arraycopy(elements, 0, newBooks, 0, elements.length);
+            elements = newBooks;
         }
     }
+
     //видаляє елемент за індексом:
-    void remove(int index){
-        Object[] newBooks1 = new Object[books.length-1];
+    void remove(int index) {
+        Object[] newElements = new Object[elements.length - 1];
         int b = 0;
-        for (int i = books.length-1; i>=0; i--) {
+        for (int i = elements.length - 1; i >= 0; i--) {
             if (i != index) {
-                newBooks1[b] = books[i];
+                newElements[b] = elements[i];
                 b++;
             }
         }
-        System.out.println(Arrays.toString(newBooks1));
+        System.out.println(Arrays.toString(newElements));
     }
+
     //очищає колекцію
-    void clear(){
-        Arrays.fill(books, null);
+    void clear() {
+        Arrays.fill(elements, null);
         System.out.println("After clearing Array:");
-        books = new Object[books.length];
-        System.out.println(Arrays.toString(books));
+        elements = new Object[elements.length];
+        System.out.println(Arrays.toString(elements));
     }
+
     //повертає розмір колекції:
-    void size(){
-        System.out.println(books.length);
+    public int size() {
+        return elements.length;
     }
+
     //повертає перший елемент стеку:
-    void peek(){
-        if(books[number]==null){
-            number--;
-         System.out.println(books[number]);
-    }
-    //повертає перший елемент стеку та видаляє його з колекції:
-    /*void pop(){
-        System.out.println(books[0]);
-        Object[] books1 = new Object[books.length-1];
-        for(int i = 0; i<books.length; i++){
-            books1[i] = books[i+1];
+    public Object peek() {
+        if (elements[number] == null) {
+         number--;}
+            return elements[number];
         }
-        System.out.println(Arrays.toString(books1));
-    }*/
-}}
+        //повертає перший елемент стеку та видаляє його з колекції:
+        public Object pop(){
+        Object[] element1 = new Object[elements.length-1];
+        int f = 0;
+        for(int i = 1; i<elements.length; i++){
+            element1[f] = elements[i];
+            f++;
+        }
+        return "Element 1 : " + elements[0]+"new Array: "+Arrays.toString(element1);
+    }
+
+}

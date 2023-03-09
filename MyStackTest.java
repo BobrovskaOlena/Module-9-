@@ -14,7 +14,9 @@ public class MyStackTest {
         numberOfBook.peek();
         numberOfBook.remove(6);
         numberOfBook.remove(3);
+        numberOfBook.pop();
         numberOfBook.clear();
+
 
     }
 }
