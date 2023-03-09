@@ -63,7 +63,16 @@ public class MyArrayList<T> {
         for (int i = 0; i < array.length; i++) {
             array[i] = null;
         }
-        System.out.println(Arrays.toString(array));
+        int a=0;
+        Object[] afterClear = new Object[a];
+        for (int j = 0; j<array.length; j++){
+            if(array[j]==null){
+                a+=0;
+            } else { afterClear[a]=array[j];
+                a++;}
+        }
+        System.out.println(Arrays.toString(afterClear));
+        System.out.println("Size after clear: " + afterClear.length);
     }
 }
 
