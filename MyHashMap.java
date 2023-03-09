@@ -1,6 +1,7 @@
+import java.util.Arrays;
 import java.util.Objects;
 
-public class MyHashMap<K,V> {
+public class MyHashMap<K,V>  {
     Node[] buckets = new Node[8];
     int sizeMyMap = 0;
 
@@ -9,22 +10,27 @@ public class MyHashMap<K,V> {
         int index = hashValue & (buckets.length-1);
 
         if (buckets[index] == null) {
-            putToEmptyBucket(key, value, hashValue, index);
+            empty(key, value, hashValue, index);
         } else {
-            for (Node node = buckets[index];; node = node.getNextNode()) {
+            for (Node node = buckets[index];;node = node.getNextNode()) {
                 if (node == null) {
                     break;
                 }
                 if (node.getHashCode() != hashValue && !node.getKey().equals(key)) {
-                    putNextNode(key, value, hashValue, index);
+                    nextNode(key, value, hashValue, index);
                     sizeMyMap++;
-                } else if (node.getKey().equals(key) && node.getValue() != value) {
+                }
+                if (node.getKey().equals(key) && node.getValue() != value) {
                     node.setValue(value);
                     break;
                 }
             }}
     }
-
+    private void empty(K key, V value, int hashValue, int index) {
+        Node<K, V> newNode = new Node<>(hashValue, key, value, null);
+        buckets[index] = newNode;
+        sizeMyMap++;
+    }
     public V get(K key) {
         V value = null;
 
@@ -68,9 +74,7 @@ public class MyHashMap<K,V> {
     }
 
     public void clear() {
-        for (int i = 0; i < buckets.length; i++) {
-            buckets[i] = null;
-        }
+        Arrays.fill(buckets, null);
         sizeMyMap = 0;
     }
 
@@ -78,13 +82,7 @@ public class MyHashMap<K,V> {
         return sizeMyMap;
     }
 
-    private void putToEmptyBucket(K key, V value, int hashValue, int index) {
-        Node<K, V> newNode = new Node<>(hashValue, key, value, null);
-        buckets[index] = newNode;
-        sizeMyMap++;
-    }
-
-    private void putNextNode(K key, V value, int hashValue, int index) {
+    private void nextNode(K key, V value, int hashValue, int index) {
         for ( Node currentNode = buckets[index];; currentNode = currentNode.getNextNode()) {
             if (currentNode.getNextNode() == null) {
                 Node node = new Node<>(hashValue, key, value, null);
@@ -94,11 +92,15 @@ public class MyHashMap<K,V> {
             }
         }
     }
+
+
+
     private static class Node<K, V> {
-        private int hashCode;
+        private final int hashCode;
+        private Node nextNode;
         private final K key;
         private V value;
-        private Node nextNode;
+
 
         Node(int hashCode, K key, V value, Node nextNode) {
             this.hashCode = hashCode;
@@ -129,8 +131,6 @@ public class MyHashMap<K,V> {
         public void setValue(V value) {
             this.value = value;
         }
-
-
     }
 }
 
