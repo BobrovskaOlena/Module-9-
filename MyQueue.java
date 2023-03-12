@@ -1,29 +1,35 @@
 import java.util.Arrays;
 import java.util.StringJoiner;
 
-public class MyQueue<T> {
-    private static final int number = 7;
-    private Object[] arr = new Object[number];
-    private int num;
+public class MyQueue<E> {
+    private E[] arr;
+    private int size;
+    private int head; // індекс першого елемента
+    private int tail; // індекс наступного за останнім елементом
+    public MyQueue() {
+        arr = (E[]) new Object[10]; // початковий розмір масиву 10
+        size = 0;
+        head = 0;
+        tail = 0;
+    }
     //додає елемент в кінець:
-    public void add(T value){
+    public void add(E value){
         ifNeedNewSize();
-        arr[num]=value;
-        num++;
+        arr[tail]=value;
+        tail = (tail + 1) % arr.length;
+        size++;
     }
     private void ifNeedNewSize(){
-        if(num==arr.length){
-            System.out.println("Process is successful, num: "+ num + ", buyers.length is: " + arr.length);
-            int newNum = (arr.length*3)/2;
-            Object[] newBuyers = new Object[newNum];
-            System.arraycopy(arr, 0, newBuyers, 0, arr.length);
-            arr=newBuyers;
+        if(size==arr.length){
+            System.out.println("Process is successful, size: "+ size + ", arr.length is: " + arr.length);
+            int newSize = (arr.length*3)/2;
+            arr = Arrays.copyOf(arr, newSize);
         }
     }
     @Override
     public String toString(){
         StringJoiner result1 = new StringJoiner(", ");
-        for(int i =0; i<number; i++){
+        for(int i =0; i<size; i++){
             result1.add(arr[i].toString());
         }
         return "["+ result1 +"]";
@@ -31,25 +37,38 @@ public class MyQueue<T> {
     //очищає колекцію:
     void clear(){
         Arrays.fill(arr, null);
-        System.out.println("After clearing Array:");
-        arr = new Object[arr.length];
-        System.out.println(Arrays.toString(arr));
+        size = 0;
+        head = 0;
+        tail = 0;
     }
     //повертає розмір колекції:
     public int size(){
-        return arr.length;
+        return size;
     }
     //повертає перший елемент з черги:
-    public Object peek(){
-        return arr[0];
+    public E peek(){
+        if (size == 0) {
+            return null;
+        }
+        return arr[head];
     }
     //повертає перший елемент з черги і видаляє його з колекції:
-    public Object poll(){
-        int b=0;
-        Object[] a = new Object[arr.length-1];
-         for(int i = 1; i<arr.length; i++){
-            a[b]=arr[i];
-            b++;
+    public E poll(){
+        if (size == 0) {
+            return null;
         }
-   return "First element: " + arr[0]+ "afterPoll: "+Arrays.toString(a);}
+        E value = arr[head];
+        arr[head] = null;
+        head = (head + 1) % arr.length;
+        size--;
+        return value;
+    }
 }
+
+
+
+
+
+
+
+

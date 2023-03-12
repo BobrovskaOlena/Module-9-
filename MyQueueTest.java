@@ -11,7 +11,6 @@ public class MyQueueTest {
         names.add("Maria");
         names.size();
         names.peek();
-        System.out.println("size before poll: ");
         names.size();
         names.poll();
         names.clear();
