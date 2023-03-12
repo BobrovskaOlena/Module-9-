@@ -76,3 +76,56 @@ public class MyStack<T> {
     }
 
 }
+
+public class MyStack<E> {
+    private int size;
+    private E[] array;
+
+    public MyStack() {
+        size = 0;
+        array = (E[]) new Object[10];
+    }
+
+    public void push(E value) {
+        if (size == array.length) {
+            E[] newArray = (E[]) new Object[array.length * 2];
+            System.arraycopy(array, 0, newArray, 0, array.length);
+            array = newArray;
+        }
+        array[size++] = value;
+    }
+
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        E removed = array[index];
+        System.arraycopy(array, index + 1, array, index, size - index - 1);
+        size--;
+        return removed;
+    }
+
+    public void clear() {
+        size = 0;
+        array = (E[]) new Object[10];
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public E peek() {
+        if (size == 0) {
+            return null;
+        }
+        return array[size - 1];
+    }
+
+    public E pop() {
+        E value = peek();
+        if (size > 0) {
+            size--;
+        }
+        return value;
+    }
+}
