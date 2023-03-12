@@ -16,7 +16,5 @@ public class MyStackTest {
         numberOfBook.remove(3);
         numberOfBook.pop();
         numberOfBook.clear();
-
-
     }
 }
