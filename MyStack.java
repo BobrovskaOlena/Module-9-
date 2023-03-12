@@ -1,17 +1,17 @@
 import java.util.Arrays;
 public class MyStack<T> {
-    private final int count = 5;
-    private Object[] elements = new Object[count];
-    private int number = 0;
-
+    private int size;
+    private T[] elements;
+    public MyStack() {
+        size = 0;
+       elements=(T[]) new Object[10];}
     //додає елемент в кінець:
     public void push(T value) {
         ifNeedNewSize();
-        elements[number] = value;
-        number++;
+        elements[size] = value;
+        size++;
         reverse();
     }
-
     void reverse() {
         int a = 0;
         Object[] elements3 = new Object[elements.length];
@@ -23,17 +23,17 @@ public class MyStack<T> {
     }
 
     private void ifNeedNewSize() {
-        if (number == elements.length) {
-            System.out.println("The resizing process is successful, count: " + count + ", books.length is: " + elements.length);
-            int newCount = (elements.length * 3) / 2;
-            Object[] newBooks = new Object[newCount];
-            System.arraycopy(elements, 0, newBooks, 0, elements.length);
-            elements = newBooks;
+        if (size == elements.length) {
+            System.out.println("The resizing process is successful");
+            int newSize=(elements.length * 3) / 2;
+            T[] newArray = (T[]) new Object[newSize];
+            System.arraycopy(elements, 0, newArray, 0, elements.length);
+            elements = newArray;
         }
     }
 
     //видаляє елемент за індексом:
-    void remove(int index) {
+    public remove(int index) {
         Object[] newElements = new Object[elements.length - 1];
         int b = 0;
         for (int i = elements.length - 1; i >= 0; i--) {
@@ -77,23 +77,11 @@ public class MyStack<T> {
 
 }
 
-public class MyStack<E> {
-    private int size;
-    private E[] array;
 
-    public MyStack() {
-        size = 0;
-        array = (E[]) new Object[10];
-    }
 
-    public void push(E value) {
-        if (size == array.length) {
-            E[] newArray = (E[]) new Object[array.length * 2];
-            System.arraycopy(array, 0, newArray, 0, array.length);
-            array = newArray;
-        }
-        array[size++] = value;
-    }
+
+
+
 
     public E remove(int index) {
         if (index < 0 || index >= size) {
