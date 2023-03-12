@@ -1,5 +1,6 @@
 public class MyLinkedList<T> {
  private Node1<T> head;
+ public int size;
 
  //додає елемент в кінець:
  public void add(T item) {
@@ -13,8 +14,8 @@ public class MyLinkedList<T> {
    while (last.getNext() != null) {
     last = last.getNext();
    }
-
-   last.setNext(node);
+     last.setNext(node);
+   size++;
   }
  }
 
@@ -29,9 +30,8 @@ public class MyLinkedList<T> {
 
  //очищає колекцію:
  public void clear() {
-   Node1<T> previous = null;
-   Node1<T> current = null;
-   Node1<T> next = null;
+   head = null;
+   size=0;
   }
 
  //повертає розмір колекції:
