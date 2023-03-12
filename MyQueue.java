@@ -1,19 +1,19 @@
 import java.util.Arrays;
 import java.util.StringJoiner;
 
-public class MyQueue<E> {
-    private E[] arr;
+public class MyQueue<T> {
+    private T[] arr;
     private int size;
     private int head; // індекс першого елемента
-    private int tail; // індекс наступного за останнім елементом
+    private int tail;
     public MyQueue() {
-        arr = (E[]) new Object[10]; // початковий розмір масиву 10
+        arr = (T[]) new Object[10];
         size = 0;
         head = 0;
         tail = 0;
     }
     //додає елемент в кінець:
-    public void add(E value){
+    public void add(T value){
         ifNeedNewSize();
         arr[tail]=value;
         tail = (tail + 1) % arr.length;
@@ -46,18 +46,18 @@ public class MyQueue<E> {
         return size;
     }
     //повертає перший елемент з черги:
-    public E peek(){
+    public T peek(){
         if (size == 0) {
             return null;
         }
         return arr[head];
     }
     //повертає перший елемент з черги і видаляє його з колекції:
-    public E poll(){
+    public T poll(){
         if (size == 0) {
             return null;
         }
-        E value = arr[head];
+        T value = arr[head];
         arr[head] = null;
         head = (head + 1) % arr.length;
         size--;
