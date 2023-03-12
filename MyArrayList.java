@@ -1,9 +1,8 @@
 import java.util.StringJoiner;
-import java.util.*;
 public class MyArrayList<T> {
     private static final int INIT_NUMBER = 7;
+    private int size = 0;
     private Object[] array;
-    private int counter;
 
     public MyArrayList(){
         array = new Object[INIT_NUMBER];
@@ -12,66 +11,62 @@ public class MyArrayList<T> {
     //додає елемент в кінець:
     public void add(T value){
         ifNeedNewSize();
-        array[counter]=value;
-        counter++;
+        array[size]=value;
+        size++;
     }
     private void ifNeedNewSize(){
-        if(counter==array.length){
-            System.out.println("The resizing process is successful, number: "+ counter + ", numbering.length is: " + array.length);
+        if(size==array.length){
+            System.out.println("The resizing process is successful, size: "+ size + ", numbering.length is: " + array.length);
             int newNumber = (array.length*3)/2;
             Object[] newNumbering = new Object[newNumber];
             System.arraycopy(array, 0, newNumbering, 0, array.length);
             array=newNumbering;
+            }
         }
-    }
     //повертає елемент за індексом
-    public Object get(int index){
-        return array[index];
+    public T get(int index){
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
+        }
+        return (T) array[index];
     }
     //повертає розмір колекції
     public int size(){
-        return counter;
+        return size;
     }
 
     @Override
     public String toString(){
         StringJoiner result = new StringJoiner(", ");
-        for(int i =0; i<counter; i++){
+        for(int i =0; i<size; i++){
             result.add(array[i].toString());
         }
         return "["+ result +"]";
     }
 
     //видаляє елемент із вказаним індексом:
-    public void remove(int index) {
-        Object[] afterRemove = new Object[array.length-1];
-        int d = 0;
-        for(int i = 0; i<array.length;i++){
-            if(i==index){
-                continue;
-            }
-            afterRemove[d]=array[i];
-            d++;
+    public T remove(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
         }
-        System.out.println(Arrays.toString(afterRemove));
+        T arr = (T) array[index];
+        int numMoved = size - index - 1;
+        if (numMoved > 0) {
+            System.arraycopy(array, index + 1, array, index, numMoved);
+        }
+        array[--size] = null;
+        return arr;
     }
 
     //очищає колекцію:
     public void clear(){
-        System.out.println("After clearing Array:");
-        Arrays.fill(array, null);
-        int a=0;
-        Object[] afterClear = new Object[a];
-        for (Object o : array) {
-            if (o == null) {
-                a += 0;
-            } else {
-                afterClear[a] = o;
-                a++;
-            }
+            array = new Object[INIT_NUMBER];
+            size = 0;
         }
-        System.out.println(Arrays.toString(afterClear));
-        System.out.println("Size after clear: " + afterClear.length);
     }
-}
+
+
+
+
+
 
